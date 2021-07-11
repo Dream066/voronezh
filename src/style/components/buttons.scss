@@ -1,0 +1,30 @@
+.buttons {
+    padding: 100px;
+    background-color: blanchedalmond;
+
+    &__container {
+        padding: 0 20px;
+    }
+
+    &__wrapper {
+        padding: 20px 0;
+        max-width: 300px;
+        background-color: white;
+        display: flex;
+        margin: 0 auto;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+
+        button {
+            &:not(:last-child) {
+                margin-bottom: 20px;
+            }
+        }
+    }
+
+    &__column {
+        width: 50%;
+    }
+}

@@ -1,0 +1,94 @@
+@mixin resize-img-wrapper {
+  position: relative;
+  width: 100%;
+
+  &::after {
+    content: "";
+    display: block;
+    @content;
+  }
+}
+
+@mixin animation {
+  transition: all ease-out 0.3s;
+}
+
+@mixin hover-link($color) {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: transparent;
+    transition: background-color ease 0.3s;
+  }
+
+  &:hover {
+    &::after {
+      background-color: $color;
+    }
+  }
+}
+
+$media-list: ("xss": 350,
+  "xs": 450,
+  "md": 620,
+  "lg": 768,
+  "xl": 1000,
+  "xxl": 1200,
+  "tablet": 1559,
+);
+
+@function _get-media-width($width, $maxmin) {
+  @if map-get($media-list, $width) {
+    $width: map-get($media-list, $width);
+
+    @if $maxmin {
+      @return $width;
+    }
+
+    @else {
+      @return $width+1;
+    }
+  }
+
+  @else {
+    @return $width;
+  }
+}
+
+@mixin media($width, $maxmin: true) {
+  $width: _get-media-width($width, $maxmin);
+
+  @if ($maxmin) {
+    @media only screen and (max-width: $width + "px") {
+      @content;
+    }
+  }
+
+  @else {
+    @media only screen and (min-width: $width + "px") {
+      @content;
+    }
+  }
+}
+
+@mixin resize-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+$baseHeight: 1080;
+
+@function toVh($px) {
+  @return (($px/$baseHeight) * 100)+vh;
+}
